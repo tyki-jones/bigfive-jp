@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react'
 import { supabase } from '../lib/supabase'
 import { TRAITS, TRAIT_LABELS_JP } from '../lib/config'
 import styles from './survey.module.css'
+import { useRouter } from 'next/navigation'
+import { calculateScores, saveResponse } from '../lib/scoring'
 
 type Question = {
   id: number
@@ -44,6 +46,7 @@ export default function SurveyPage() {
   const [answers, setAnswers] = useState<Answers>({})
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const router = useRouter()
 
   useEffect(() => {
     async function fetchQuestions() {
@@ -77,9 +80,15 @@ export default function SurveyPage() {
     }
   }
 
-  function handleSubmit() {
-    // Phase 2: calculate scores and navigate to results
-    console.log('Final answers:', answers)
+  async function handleSubmit() {
+    const allQuestions = pages.flat()
+    const scores = calculateScores(answers, allQuestions)
+    const id = await saveResponse(scores)
+    if (id) {
+      router.push(`/results/${id}`)
+    } else {
+      alert('エラーが発生しました。もう一度お試しください。')
+    }
   }
 
   if (loading) return (
