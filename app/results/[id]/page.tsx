@@ -2,6 +2,7 @@ import { supabase } from '../../lib/supabase'
 import { TRAITS, TRAIT_LABELS_JP, LEVEL_LABELS_JP } from '../../lib/config'
 import type { Trait, TraitLevel } from '../../lib/config'
 import { notFound } from 'next/navigation'
+import ShareSection from './ShareSection'
 
 type TraitScore = {
   raw: number
@@ -80,7 +81,7 @@ export default async function ResultsPage({ params }: { params: Promise<{ id: st
           あなたの診断結果
         </h1>
         <p style={{ fontSize: '14px', color: '#888', marginBottom: '40px', lineHeight: '1.6' }}>
-          以下はあなたのビッグファイブパーソナリティの結果です。各特性のスコアは日本人の平均と比較した百分位数で表されています。
+          以下はあなたのビッグファ性格診断の結果です。各特性のスコアは日本人の平均と比較した百分位数で表されています。
         </p>
 
         {/* Trait scores */}
@@ -116,15 +117,7 @@ export default async function ResultsPage({ params }: { params: Promise<{ id: st
           })}
         </div>
 
-        {/* Share section */}
-        <div style={{ marginTop: '48px', padding: '24px', background: '#F0F0EC', borderRadius: '8px', textAlign: 'center' }}>
-          <p style={{ fontSize: '14px', color: '#5F5E5A', marginBottom: '12px' }}>
-            結果をシェアする
-          </p>
-          <p style={{ fontSize: '12px', color: '#888', wordBreak: 'break-all' }}>
-            {`${process.env.NEXT_PUBLIC_SITE_URL}/results/${id}`}
-          </p>
-        </div>
+        <ShareSection url={`${process.env.NEXT_PUBLIC_SITE_URL}/results/${id}`} />
 
         {/* Retake */}
         <div style={{ marginTop: '24px', textAlign: 'center' }}>

@@ -2,14 +2,18 @@ import { supabase } from './supabase'
 import { TRAITS, LEVEL_THRESHOLDS, TRAIT_LEVELS } from './config'
 import type { Trait, TraitLevel } from './config'
 
-// Published Japanese Big Five norms (Wada 1996 + subsequent studies)
-// Mean and SD on a 12-84 raw score scale
-const JAPANESE_NORMS: Record<Trait, { mean: number; sd: number }> = {
-  extraversion:       { mean: 46, sd: 11 },
-  neuroticism:        { mean: 48, sd: 11 },
-  openness:           { mean: 52, sd: 10 },
-  conscientiousness:  { mean: 50, sd: 10 },
-  agreeableness:      { mean: 50, sd: 10 },
+// Source: Saito, Nakamura, Endo, & Yokoyama (2001). 性格特性用語を用いた
+// Big Five尺度の標準化. Kyushu University Psychological Research, 2, 135-144.
+// n = 925 Japanese university students (353 male, 572 female), Table 3.
+// Note: distributions were confirmed non-normal (p<.005) — this is a normal
+// approximation, kept for simplicity until we can build a raw-score lookup
+// table from Tables 5-9 of the same paper, or replace with our own user data.
+const JAPANESE_NORMS = {
+  extraversion:      { mean: 54.62, sd: 13.60 },
+  neuroticism:       { mean: 55.70, sd: 13.02 },
+  openness:          { mean: 51.07, sd: 11.34 },
+  conscientiousness: { mean: 42.70, sd: 11.15 },
+  agreeableness:     { mean: 57.78, sd: 11.24 },
 }
 
 // Cumulative normal distribution approximation
