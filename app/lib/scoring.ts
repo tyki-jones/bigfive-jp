@@ -74,6 +74,7 @@ export function calculateScores(
 export function buildCombinationKey(
   scores: Record<Trait, { level: TraitLevel }>
 ): string {
+  // Same format as narratives.combination_key, so keys can be matched/joined directly.
   return TRAITS.map(trait => scores[trait].level).join('-')
 }
 

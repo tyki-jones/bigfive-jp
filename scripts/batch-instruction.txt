@@ -1,0 +1,89 @@
+First, read these four reference files in full and hold them in context for this
+entire session (read once, not per-item):
+  - scripts/bigfive_career.md
+  - scripts/bigfive_romance.md
+  - scripts/bigfive_life.md
+  - scripts/bigfive_interactions.md
+
+When generating OVERVIEW sections, check bigfive_interactions.md for any documented
+findings specific to this combination's actual trait pairing(s), and let that inform
+paragraph 3 (the uniqueness/rarity paragraph) where relevant. Use it the same
+lighter-touch way described in the master prompt's reference-doc instructions for
+the other three docs — don't force a citation-like reference to it.
+
+Read scripts/combinations.json. Find the first 50 entries where "done" is false.
+
+Then write those 50 combination keys, one per line, to scripts/.gen/batch.txt
+(overwriting the previous batch), since sweep.sh and the verify scripts read it.
+
+For each of these 50 combinations:
+
+1. Generate a narrative using the master prompt in scripts/master-prompt.md,
+   substituting the combination's openness/conscientiousness/extraversion/
+   agreeableness/neuroticism levels into the {placeholders}. Before drafting,
+   read the "First-draft length calibration" note near the end of
+   master-prompt.md (under "Notes for the generation script") — first drafts
+   have consistently landed well under the target character counts across every
+   batch so far, costing several extra edit rounds per combination. Draft toward
+   the upper-middle of each field's target range from the start, using the
+   per-field sentence-count/length heuristics in that note, rather than writing
+   what feels like a "complete" paragraph and checking length after the fact.
+
+2. Parse your own output into the five sections: OVERVIEW, LIFE_ADVICE,
+   CAREER, ROMANCE, OVERALL_ADVICE (split on the ---SECTION_NAME--- markers).
+
+3. Validate before inserting:
+   - Every section present, ending with ---END--- (flag if truncated)
+   - OVERVIEW: 700–900 characters
+   - LIFE_ADVICE / CAREER / ROMANCE: 500–700 characters each
+   - OVERALL_ADVICE: 200–300 characters
+   - No banned comparative phrases: と違って, 他の人より, ように振り回される,
+     より優れています, 誰よりも, 他の人以上に (see master prompt for the
+     exceptions covering combination-rarity statements and how-others-react
+     descriptions using 多くの人が — those are allowed)
+   - No detached third-person framing: この配置, この組み合わせは, こうしたタイプの人
+   - No more than 2 em-dashes (——) in the combined output
+   - No phrase or sentence repeated within the same field
+   - Check scripts/used-phrases.json — if this generation reuses a tracked
+     phrase, rewrite that instance with different wording. When appending new
+     phrases from this generation to that file, hold additions to a strict
+     bar: only track a specific technique/action (e.g. "六割の完成度で一度
+     共有する"), an unusual metaphor, or a phrase anchored to a concrete
+     scene. Do NOT track a bare [adjective]+[trait-noun] pairing that just
+     names a trait level the obvious way (e.g. "動じない安定感",
+     "物おじしない社交性", "静かな独立心") — these recur naturally across many
+     combinations and only cause false-positive collisions. Quick test: could
+     this exact phrase plausibly arise from someone else independently
+     describing this trait level, without copying? If yes, don't track it.
+   - For LIFE_ADVICE, CAREER, ROMANCE: apply Check 1 (factual consistency with
+     this combination's actual trait levels) and Check 2 (would this closing
+     sentence work unchanged for a different combination sharing only one
+     trait? if so, tie it to at least one other trait or to something already
+     described in this narrative)
+   If a generation fails validation, regenerate that one combination before moving on.
+
+4. Insert the validated result into the `narratives` table in Supabase
+   (combination_key, overview, life_advice, career, romance, overall_advice).
+
+5. Update that combination's "done" field to true in scripts/combinations.json
+   and save the file.
+
+Checkpoints: at items 17 and 34 (and again at the end), stop and run the batch
+overlap sweep (scripts/.gen/sweep.sh) plus an opener/closer check: print the
+first sentence of OVERVIEW paragraph 3, the first and last sentence of
+LIFE/CAREER/ROMANCE, and the first sentence of OVERALL for every item so far.
+If any shape appears in more than ~1/3 of items, rewrite those by sentence index
+before drafting further. Draft each field at ~14 sentences (first drafts land
+~75% of target otherwise).
+
+Before finishing, re-read the 3rd-from-last and 2nd-to-last generated items and
+compare them against the first 2-3 items generated in this session. Check for
+repetition, genericness, or regression on any of the rules above. If drift is
+present, regenerate the affected items now rather than leaving them as-is.
+
+Report at the end:
+   - How many succeeded on the first try vs. needed regeneration
+   - Whether Check 1 or Check 2 caught anything real this batch
+   - Any combinations that failed validation twice in a row (flag for manual review)
+   - Whether drift was found in the late-batch check, and what was regenerated
+   - Total combinations remaining across the whole worklist
