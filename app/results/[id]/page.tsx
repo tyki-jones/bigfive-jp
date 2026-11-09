@@ -1,6 +1,7 @@
 import { supabase } from '../../lib/supabase'
 import { TRAITS, TRAIT_LABELS_JP, LEVEL_LABELS_JP } from '../../lib/config'
 import type { Trait, TraitLevel } from '../../lib/config'
+import { rawToPercentile } from '../../lib/scoring'
 import { notFound } from 'next/navigation'
 import ShareSection from './ShareSection'
 
@@ -27,25 +28,6 @@ async function getResponse(id: string): Promise<Response | null> {
   return data
 }
 
-function rawToPercentile(raw: number, mean: number, sd: number): number {
-  function normCDF(z: number): number {
-    const t = 1 / (1 + 0.2316419 * Math.abs(z))
-    const d = 0.3989423 * Math.exp(-z * z / 2)
-    const p = d * t * (0.3193815 + t * (-0.3565638 + t * (1.7814779 + t * (-1.8212560 + t * 1.3302744))))
-    return z > 0 ? 1 - p : p
-  }
-  const z = (raw - mean) / sd
-  return Math.round(normCDF(z) * 100)
-}
-
-const JAPANESE_NORMS: Record<Trait, { mean: number; sd: number }> = {
-  extraversion:       { mean: 46, sd: 11 },
-  neuroticism:        { mean: 48, sd: 11 },
-  openness:           { mean: 52, sd: 10 },
-  conscientiousness:  { mean: 50, sd: 10 },
-  agreeableness:      { mean: 50, sd: 10 },
-}
-
 function getBarColor(percentile: number): string {
   if (percentile >= 90) return '#1D9E75'
   if (percentile >= 67) return '#4BB896'
@@ -62,8 +44,7 @@ export default async function ResultsPage({ params }: { params: Promise<{ id: st
   const scores: Record<Trait, TraitScore> = {} as Record<Trait, TraitScore>
   TRAITS.forEach(trait => {
     const raw = response.raw_scores[trait]
-    const { mean, sd } = JAPANESE_NORMS[trait]
-    const percentile = rawToPercentile(raw, mean, sd)
+    const percentile = rawToPercentile(raw, trait)
     const combinationParts = response.combination_key.split('-')
     const level = combinationParts[TRAITS.indexOf(trait)] as TraitLevel
     scores[trait] = { raw, percentile, level }

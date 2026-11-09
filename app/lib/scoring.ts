@@ -8,12 +8,13 @@ import type { Trait, TraitLevel } from './config'
 // Note: distributions were confirmed non-normal (p<.005) — this is a normal
 // approximation, kept for simplicity until we can build a raw-score lookup
 // table from Tables 5-9 of the same paper, or replace with our own user data.
+// replace with our own user data later on
 const JAPANESE_NORMS = {
   extraversion:      { mean: 54.62, sd: 13.60 },
   neuroticism:       { mean: 55.70, sd: 13.02 },
   openness:          { mean: 51.07, sd: 11.34 },
-  conscientiousness: { mean: 42.70, sd: 11.15 },
   agreeableness:     { mean: 57.78, sd: 11.24 },
+  conscientiousness: { mean: 42.70, sd: 11.15 },
 }
 
 // Cumulative normal distribution approximation
@@ -24,7 +25,8 @@ function normCDF(z: number): number {
   return z > 0 ? 1 - p : p
 }
 
-function rawToPercentile(raw: number, trait: Trait): number {
+// Single source of truth for percentiles — used by both survey scoring and the results page.
+export function rawToPercentile(raw: number, trait: Trait): number {
   const { mean, sd } = JAPANESE_NORMS[trait]
   const z = (raw - mean) / sd
   return Math.round(normCDF(z) * 100)
