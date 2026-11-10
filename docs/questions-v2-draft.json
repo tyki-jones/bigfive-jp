@@ -1,0 +1,422 @@
+[
+  {
+    "id": 1,
+    "trait": "extraversion",
+    "facet": "社交性",
+    "reverse_scored": false,
+    "text_jp": "初めて会う人とも、すぐに打ち解けられる。"
+  },
+  {
+    "id": 2,
+    "trait": "extraversion",
+    "facet": "自己主張",
+    "reverse_scored": true,
+    "text_jp": "目立つ役割は、できれば人に任せたい。"
+  },
+  {
+    "id": 3,
+    "trait": "extraversion",
+    "facet": "自己主張",
+    "reverse_scored": false,
+    "text_jp": "話し合いでは、自分の意見をはっきり言う。"
+  },
+  {
+    "id": 4,
+    "trait": "extraversion",
+    "facet": "活動性",
+    "reverse_scored": true,
+    "text_jp": "動き出すまでに、エンジンがかかるのが遅い。"
+  },
+  {
+    "id": 5,
+    "trait": "extraversion",
+    "facet": "活動性",
+    "reverse_scored": false,
+    "text_jp": "空いた時間には、つい何か予定を入れてしまう。"
+  },
+  {
+    "id": 6,
+    "trait": "extraversion",
+    "facet": "社交性",
+    "reverse_scored": true,
+    "text_jp": "大勢でいるより、一人で過ごすほうが落ち着く。"
+  },
+  {
+    "id": 7,
+    "trait": "extraversion",
+    "facet": "社交性",
+    "reverse_scored": false,
+    "text_jp": "飲み会やパーティーには、喜んで参加する。"
+  },
+  {
+    "id": 8,
+    "trait": "extraversion",
+    "facet": "自己主張",
+    "reverse_scored": true,
+    "text_jp": "会議や授業では、指名されるまで発言しない。"
+  },
+  {
+    "id": 9,
+    "trait": "extraversion",
+    "facet": "自己主張",
+    "reverse_scored": false,
+    "text_jp": "グループでは、自然とまとめ役になる。"
+  },
+  {
+    "id": 10,
+    "trait": "extraversion",
+    "facet": "活動性",
+    "reverse_scored": true,
+    "text_jp": "どちらかというと、もの静かなタイプだ。"
+  },
+  {
+    "id": 11,
+    "trait": "extraversion",
+    "facet": "活動性",
+    "reverse_scored": false,
+    "text_jp": "周りから、元気で明るい人だと言われる。"
+  },
+  {
+    "id": 12,
+    "trait": "extraversion",
+    "facet": "社交性",
+    "reverse_scored": true,
+    "text_jp": "自分から人に話しかけることは少ない。"
+  },
+  {
+    "id": 13,
+    "trait": "neuroticism",
+    "facet": "不安",
+    "reverse_scored": false,
+    "text_jp": "先のことを考えて、心配になることがよくある。"
+  },
+  {
+    "id": 14,
+    "trait": "neuroticism",
+    "facet": "落ち込み",
+    "reverse_scored": true,
+    "text_jp": "毎日の生活に、おおむね満足している。"
+  },
+  {
+    "id": 15,
+    "trait": "neuroticism",
+    "facet": "落ち込み",
+    "reverse_scored": false,
+    "text_jp": "理由もなく、気分が沈む日がある。"
+  },
+  {
+    "id": 16,
+    "trait": "neuroticism",
+    "facet": "感情の起伏",
+    "reverse_scored": true,
+    "text_jp": "腹が立っても、すぐに冷静になれる。"
+  },
+  {
+    "id": 17,
+    "trait": "neuroticism",
+    "facet": "感情の起伏",
+    "reverse_scored": false,
+    "text_jp": "ささいなことで、気分が大きく変わる。"
+  },
+  {
+    "id": 18,
+    "trait": "neuroticism",
+    "facet": "不安",
+    "reverse_scored": true,
+    "text_jp": "たいていのことは「なんとかなる」と考えられる。"
+  },
+  {
+    "id": 19,
+    "trait": "neuroticism",
+    "facet": "不安",
+    "reverse_scored": false,
+    "text_jp": "大事な場面の前は、緊張して落ち着かなくなる。"
+  },
+  {
+    "id": 20,
+    "trait": "neuroticism",
+    "facet": "落ち込み",
+    "reverse_scored": true,
+    "text_jp": "自分のことを、わりと気に入っている。"
+  },
+  {
+    "id": 21,
+    "trait": "neuroticism",
+    "facet": "落ち込み",
+    "reverse_scored": false,
+    "text_jp": "失敗すると、何日も引きずってしまう。"
+  },
+  {
+    "id": 22,
+    "trait": "neuroticism",
+    "facet": "感情の起伏",
+    "reverse_scored": true,
+    "text_jp": "気分は、いつもだいたい一定だ。"
+  },
+  {
+    "id": 23,
+    "trait": "neuroticism",
+    "facet": "感情の起伏",
+    "reverse_scored": false,
+    "text_jp": "カッとなって、強い口調になってしまうことがある。"
+  },
+  {
+    "id": 24,
+    "trait": "neuroticism",
+    "facet": "不安",
+    "reverse_scored": true,
+    "text_jp": "予定外のことが起きても、あわてずに対応できる。"
+  },
+  {
+    "id": 25,
+    "trait": "openness",
+    "facet": "知的好奇心",
+    "reverse_scored": false,
+    "text_jp": "知らない分野の話を聞くと、もっと詳しく知りたくなる。"
+  },
+  {
+    "id": 26,
+    "trait": "openness",
+    "facet": "美的感受性",
+    "reverse_scored": true,
+    "text_jp": "美術館や展示会は、退屈に感じる。"
+  },
+  {
+    "id": 27,
+    "trait": "openness",
+    "facet": "美的感受性",
+    "reverse_scored": false,
+    "text_jp": "音楽や絵に、心を強く動かされる。"
+  },
+  {
+    "id": 28,
+    "trait": "openness",
+    "facet": "想像力",
+    "reverse_scored": true,
+    "text_jp": "自由に考えるより、答えが決まっている課題のほうが取り組みやすい。"
+  },
+  {
+    "id": 29,
+    "trait": "openness",
+    "facet": "想像力",
+    "reverse_scored": false,
+    "text_jp": "空想にふけって、時間を忘れることがある。"
+  },
+  {
+    "id": 30,
+    "trait": "openness",
+    "facet": "知的好奇心",
+    "reverse_scored": true,
+    "text_jp": "理屈より、すぐに役立つ話のほうが好きだ。"
+  },
+  {
+    "id": 31,
+    "trait": "openness",
+    "facet": "知的好奇心",
+    "reverse_scored": false,
+    "text_jp": "物事の「なぜ」を考えるのが好きだ。"
+  },
+  {
+    "id": 32,
+    "trait": "openness",
+    "facet": "美的感受性",
+    "reverse_scored": true,
+    "text_jp": "部屋や持ち物は、見た目より使いやすさで選ぶ。"
+  },
+  {
+    "id": 33,
+    "trait": "openness",
+    "facet": "美的感受性",
+    "reverse_scored": false,
+    "text_jp": "季節の移り変わりや景色の美しさに、よく目が留まる。"
+  },
+  {
+    "id": 34,
+    "trait": "openness",
+    "facet": "想像力",
+    "reverse_scored": true,
+    "text_jp": "現実離れした話は、ばかばかしく感じる。"
+  },
+  {
+    "id": 35,
+    "trait": "openness",
+    "facet": "想像力",
+    "reverse_scored": false,
+    "text_jp": "新しい企画やアイデアを練るのに、夢中になる。"
+  },
+  {
+    "id": 36,
+    "trait": "openness",
+    "facet": "知的好奇心",
+    "reverse_scored": true,
+    "text_jp": "新しい方法を試すより、慣れたやり方を続けたい。"
+  },
+  {
+    "id": 37,
+    "trait": "conscientiousness",
+    "facet": "秩序",
+    "reverse_scored": false,
+    "text_jp": "持ち物や部屋は、きちんと整理しておく。"
+  },
+  {
+    "id": 38,
+    "trait": "conscientiousness",
+    "facet": "勤勉性",
+    "reverse_scored": true,
+    "text_jp": "締め切りぎりぎりになって、あわてることが多い。"
+  },
+  {
+    "id": 39,
+    "trait": "conscientiousness",
+    "facet": "勤勉性",
+    "reverse_scored": false,
+    "text_jp": "始めたことは、最後までやり遂げる。"
+  },
+  {
+    "id": 40,
+    "trait": "conscientiousness",
+    "facet": "責任感",
+    "reverse_scored": true,
+    "text_jp": "お金や時間を、深く考えずに使ってしまう。"
+  },
+  {
+    "id": 41,
+    "trait": "conscientiousness",
+    "facet": "責任感",
+    "reverse_scored": false,
+    "text_jp": "約束の時間は、必ず守る。"
+  },
+  {
+    "id": 42,
+    "trait": "conscientiousness",
+    "facet": "秩序",
+    "reverse_scored": true,
+    "text_jp": "物をどこに置いたか、よく忘れる。"
+  },
+  {
+    "id": 43,
+    "trait": "conscientiousness",
+    "facet": "秩序",
+    "reverse_scored": false,
+    "text_jp": "予定は前もって立てておく。"
+  },
+  {
+    "id": 44,
+    "trait": "conscientiousness",
+    "facet": "勤勉性",
+    "reverse_scored": true,
+    "text_jp": "作業の途中で、ほかのことに気を取られやすい。"
+  },
+  {
+    "id": 45,
+    "trait": "conscientiousness",
+    "facet": "勤勉性",
+    "reverse_scored": false,
+    "text_jp": "やるべきことがあると、すぐに取りかかる。"
+  },
+  {
+    "id": 46,
+    "trait": "conscientiousness",
+    "facet": "責任感",
+    "reverse_scored": true,
+    "text_jp": "面倒な手続きや連絡は、つい人任せにしてしまう。"
+  },
+  {
+    "id": 47,
+    "trait": "conscientiousness",
+    "facet": "責任感",
+    "reverse_scored": false,
+    "text_jp": "人に頼まれたことは、忘れずにやる。"
+  },
+  {
+    "id": 48,
+    "trait": "conscientiousness",
+    "facet": "秩序",
+    "reverse_scored": true,
+    "text_jp": "書類やメールが、つい溜まりっぱなしになる。"
+  },
+  {
+    "id": 49,
+    "trait": "agreeableness",
+    "facet": "思いやり",
+    "reverse_scored": false,
+    "text_jp": "困っている人を見ると、手を貸したくなる。"
+  },
+  {
+    "id": 50,
+    "trait": "agreeableness",
+    "facet": "礼儀",
+    "reverse_scored": true,
+    "text_jp": "言い合いになると、相手を言い負かしたくなる。"
+  },
+  {
+    "id": 51,
+    "trait": "agreeableness",
+    "facet": "礼儀",
+    "reverse_scored": false,
+    "text_jp": "意見が違う相手にも、ていねいに接する。"
+  },
+  {
+    "id": 52,
+    "trait": "agreeableness",
+    "facet": "信頼",
+    "reverse_scored": true,
+    "text_jp": "人の親切には、何か裏があるのではと考えてしまう。"
+  },
+  {
+    "id": 53,
+    "trait": "agreeableness",
+    "facet": "信頼",
+    "reverse_scored": false,
+    "text_jp": "たいていの人は、根は善い人だと思う。"
+  },
+  {
+    "id": 54,
+    "trait": "agreeableness",
+    "facet": "思いやり",
+    "reverse_scored": true,
+    "text_jp": "他人のもめごとからは、距離を置く。"
+  },
+  {
+    "id": 55,
+    "trait": "agreeableness",
+    "facet": "思いやり",
+    "reverse_scored": false,
+    "text_jp": "人の悩みを聞くと、自分のことのように気になる。"
+  },
+  {
+    "id": 56,
+    "trait": "agreeableness",
+    "facet": "礼儀",
+    "reverse_scored": true,
+    "text_jp": "人の欠点が目につくと、つい指摘してしまう。"
+  },
+  {
+    "id": 57,
+    "trait": "agreeableness",
+    "facet": "礼儀",
+    "reverse_scored": false,
+    "text_jp": "人の話は、最後まで聞くようにしている。"
+  },
+  {
+    "id": 58,
+    "trait": "agreeableness",
+    "facet": "信頼",
+    "reverse_scored": true,
+    "text_jp": "人を信用するまでに、時間がかかる。"
+  },
+  {
+    "id": 59,
+    "trait": "agreeableness",
+    "facet": "信頼",
+    "reverse_scored": false,
+    "text_jp": "人に何かを任せるときは、相手を信じて任せる。"
+  },
+  {
+    "id": 60,
+    "trait": "agreeableness",
+    "facet": "思いやり",
+    "reverse_scored": true,
+    "text_jp": "人の相談に乗るのは、正直わずらわしい。"
+  }
+]
