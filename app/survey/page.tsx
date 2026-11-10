@@ -6,6 +6,7 @@ import { TRAITS, TRAIT_LABELS_JP } from '../lib/config'
 import styles from './survey.module.css'
 import { useRouter } from 'next/navigation'
 import { calculateScores, saveResponse } from '../lib/scoring'
+import { SITE_HEADER_HEIGHT } from '../components/SiteHeader'
 
 type Question = {
   id: number
@@ -170,13 +171,13 @@ export default function SurveyPage() {
   }
 
   if (loading) return (
-    <main style={{ minHeight: '100vh', background: '#FAFAF8', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+    <main style={{ flex: 1, background: '#FAFAF8', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
       <p style={{ color: '#888', fontSize: '14px' }}>読み込み中...</p>
     </main>
   )
 
   if (error) return (
-    <main style={{ minHeight: '100vh', background: '#FAFAF8', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+    <main style={{ flex: 1, background: '#FAFAF8', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
       <p style={{ color: '#E24B4A', fontSize: '14px' }}>{error}</p>
     </main>
   )
@@ -185,9 +186,9 @@ export default function SurveyPage() {
   const isLastPage = currentPage === 5
 
   return (
-    <main style={{ minHeight: '100vh', background: '#FAFAF8' }}>
+    <main style={{ flex: 1, background: '#FAFAF8' }}>
       {/* Progress bar */}
-      <div style={{ position: 'sticky', top: 0, zIndex: 10, background: '#FAFAF8', borderBottom: '0.5px solid #E8E8E4', padding: '12px 20px' }}>
+      <div style={{ position: 'sticky', top: SITE_HEADER_HEIGHT, zIndex: 10, background: '#FAFAF8', borderBottom: '0.5px solid #E8E8E4', padding: '12px 20px' }}>
         <div style={{ maxWidth: '640px', margin: '0 auto' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
             <div style={{ minWidth: '60px' }}>

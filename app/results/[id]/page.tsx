@@ -92,11 +92,7 @@ export default async function ResultsPage({ params }: { params: Promise<{ id: st
   const narrative = await getNarrative(response.combination_key)
 
   return (
-    <main style={{ minHeight: '100vh', background: '#FAFAF8' }}>
-      {/* Header */}
-      <div style={{ borderBottom: '0.5px solid #E8E8E4', padding: '20px', textAlign: 'center' }}>
-        <p style={{ fontSize: '12px', color: '#888', letterSpacing: '0.08em' }}>BIG FIVE JP</p>
-      </div>
+    <main style={{ flex: 1, background: '#FAFAF8' }}>
 
       <div style={{ maxWidth: '640px', margin: '0 auto', padding: '40px 20px' }}>
         <h1 style={{ fontSize: '24px', fontWeight: '500', color: '#2C2C2A', marginBottom: '8px' }}>
