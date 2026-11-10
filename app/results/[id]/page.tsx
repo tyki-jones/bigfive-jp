@@ -3,7 +3,12 @@ import { TRAITS, TRAIT_LABELS_JP, LEVEL_LABELS_JP } from '../../lib/config'
 import type { Trait, TraitLevel } from '../../lib/config'
 import { rawToPercentile } from '../../lib/scoring'
 import { notFound } from 'next/navigation'
+import type { Metadata } from 'next'
 import ShareSection from './ShareSection'
+
+export const metadata: Metadata = {
+  title: 'あなたの診断結果',
+}
 
 type TraitScore = {
   raw: number
@@ -28,6 +33,40 @@ async function getResponse(id: string): Promise<Response | null> {
   return data
 }
 
+type Narrative = {
+  overview: string
+  life_advice: string
+  career: string
+  romance: string
+  overall_advice: string
+}
+
+// Display order and headings for the narrative sections.
+const NARRATIVE_SECTIONS: { field: keyof Narrative; title: string }[] = [
+  { field: 'overview', title: 'あなたの人物像' },
+  { field: 'life_advice', title: '人生と日常' },
+  { field: 'career', title: '仕事・キャリア' },
+  { field: 'romance', title: '恋愛' },
+  { field: 'overall_advice', title: 'あなたへのメッセージ' },
+]
+
+// Narratives share the response's combination_key format ("high-very_low-…").
+async function getNarrative(combinationKey: string): Promise<Narrative | null> {
+  const { data, error } = await supabase
+    .from('narratives')
+    .select('overview, life_advice, career, romance, overall_advice')
+    .eq('combination_key', combinationKey)
+    .maybeSingle()
+
+  if (error) console.error('Error loading narrative:', error)
+  return data ?? null
+}
+
+// Narrative text is plain text with paragraphs separated by blank lines.
+function toParagraphs(text: string): string[] {
+  return text.split(/\n\s*\n/).map(p => p.trim()).filter(Boolean)
+}
+
 function getBarColor(percentile: number): string {
   if (percentile >= 90) return '#1D9E75'
   if (percentile >= 67) return '#4BB896'
@@ -50,6 +89,8 @@ export default async function ResultsPage({ params }: { params: Promise<{ id: st
     scores[trait] = { raw, percentile, level }
   })
 
+  const narrative = await getNarrative(response.combination_key)
+
   return (
     <main style={{ minHeight: '100vh', background: '#FAFAF8' }}>
       {/* Header */}
@@ -62,7 +103,7 @@ export default async function ResultsPage({ params }: { params: Promise<{ id: st
           あなたの診断結果
         </h1>
         <p style={{ fontSize: '14px', color: '#888', marginBottom: '40px', lineHeight: '1.6' }}>
-          以下はあなたのビッグファ性格診断の結果です。各特性のスコアは日本人の平均と比較した百分位数で表されています。
+          以下はあなたのビッグファイブ性格診断の結果です。各特性のスコアは日本人の平均と比較した百分位数で表されています。
         </p>
 
         {/* Trait scores */}
@@ -97,6 +138,24 @@ export default async function ResultsPage({ params }: { params: Promise<{ id: st
             )
           })}
         </div>
+
+        {/* Narrative */}
+        {narrative && (
+          <div style={{ marginTop: '56px', display: 'flex', flexDirection: 'column', gap: '40px' }}>
+            {NARRATIVE_SECTIONS.map(({ field, title }) => (
+              <section key={field} style={{ borderTop: '0.5px solid #E8E8E4', paddingTop: '32px' }}>
+                <h2 style={{ fontSize: '18px', fontWeight: '500', color: '#2C2C2A', marginBottom: '16px' }}>
+                  {title}
+                </h2>
+                {toParagraphs(narrative[field]).map((paragraph, i) => (
+                  <p key={i} style={{ fontSize: '15px', color: '#444441', lineHeight: '1.9', marginBottom: '16px' }}>
+                    {paragraph}
+                  </p>
+                ))}
+              </section>
+            ))}
+          </div>
+        )}
 
         <ShareSection url={`${process.env.NEXT_PUBLIC_SITE_URL}/results/${id}`} />
 

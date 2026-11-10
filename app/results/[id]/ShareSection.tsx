@@ -12,7 +12,7 @@ export default function ShareSection({ url }: { url: string }) {
   }
 
   const lineUrl = `https://social-plugins.line.me/lineit/share?url=${encodeURIComponent(url)}`
-  const twitterUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}&text=${encodeURIComponent('五大因子で知る、あなたの性格 — ビッグファイブ診断')}`
+  const twitterUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}&text=${encodeURIComponent('五大要素で知る、あなたの性格 — ビッグファイブ診断')}`
 
   return (
     <div style={{ marginTop: '48px', padding: '24px', background: '#F0F0EC', borderRadius: '8px' }}>
