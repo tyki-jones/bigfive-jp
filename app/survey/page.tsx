@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { supabase } from '../lib/supabase'
 import { TRAITS, TRAIT_LABELS_JP } from '../lib/config'
 import styles from './survey.module.css'
@@ -40,6 +40,39 @@ function organizeQuestions(questions: Question[]): Question[][] {
 
 const BUBBLE_SIZE_CLASSES = ['bubbleXl', 'bubbleLg', 'bubbleMd', 'bubbleSm', 'bubbleMd', 'bubbleLg', 'bubbleXl']
 
+// Auto-scroll after answering: short and snappy.
+const AUTO_SCROLL_MS = 220
+const easeOutCubic = (t: number) => 1 - Math.pow(1 - t, 3)
+
+// Animates window scroll by `distance` px. Returns a function that stops it early.
+// Stops by itself if the user starts scrolling (wheel, touch, keys) so they can take over.
+function animateWindowScroll(distance: number, onDone: () => void): () => void {
+  const start = window.scrollY
+  let startTime: number | null = null
+  let frame = 0
+
+  const stop = () => {
+    cancelAnimationFrame(frame)
+    window.removeEventListener('wheel', stop)
+    window.removeEventListener('touchstart', stop)
+    window.removeEventListener('keydown', stop)
+    onDone()
+  }
+  window.addEventListener('wheel', stop, { passive: true })
+  window.addEventListener('touchstart', stop, { passive: true })
+  window.addEventListener('keydown', stop)
+
+  const step = (now: number) => {
+    startTime ??= now
+    const t = Math.min((now - startTime) / AUTO_SCROLL_MS, 1)
+    window.scrollTo(0, start + distance * easeOutCubic(t))
+    if (t < 1) frame = requestAnimationFrame(step)
+    else stop()
+  }
+  frame = requestAnimationFrame(step)
+  return stop
+}
+
 export default function SurveyPage() {
   const [pages, setPages] = useState<Question[][]>([])
   const [currentPage, setCurrentPage] = useState(0)
@@ -47,6 +80,20 @@ export default function SurveyPage() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const router = useRouter()
+
+  // Bubble row of each question on the current page, used to measure how far to scroll.
+  const bubbleRowRefs = useRef<(HTMLDivElement | null)[]>([])
+  // Extra space under the page so the last questions can still be scrolled into place.
+  const bottomSpacerRef = useRef<HTMLDivElement | null>(null)
+  const cancelScrollRef = useRef<(() => void) | null>(null)
+
+  // Stop any running auto-scroll when leaving the page.
+  useEffect(() => () => cancelScrollRef.current?.(), [])
+
+  // New page: drop the extra bottom space from the previous page.
+  useEffect(() => {
+    if (bottomSpacerRef.current) bottomSpacerRef.current.style.height = '0px'
+  }, [currentPage])
 
   useEffect(() => {
     async function fetchQuestions() {
@@ -64,8 +111,39 @@ export default function SurveyPage() {
     fetchQuestions()
   }, [])
 
-  function handleAnswer(questionId: number, value: number) {
+  function handleAnswer(questionId: number, value: number, index: number) {
     setAnswers(prev => ({ ...prev, [questionId]: value }))
+    scrollToNextQuestion(index)
+  }
+
+  // Scrolls by exactly the distance from this question's bubble row to the next one's,
+  // so whatever was under the mouse pointer or finger is now the next question's bubbles.
+  function scrollToNextQuestion(index: number) {
+    const current = bubbleRowRefs.current[index]
+    const next = bubbleRowRefs.current[index + 1]
+    if (!current || !next) return // last question on the page
+
+    cancelScrollRef.current?.()
+
+    const distance = next.getBoundingClientRect().top - current.getBoundingClientRect().top
+    const start = window.scrollY
+    const target = start + distance
+
+    // Near the bottom of the page there may not be enough room to scroll that far.
+    const spacer = bottomSpacerRef.current
+    const maxScroll = document.documentElement.scrollHeight - window.innerHeight
+    if (spacer && target > maxScroll) {
+      spacer.style.height = `${spacer.offsetHeight + Math.ceil(target - maxScroll)}px`
+    }
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      window.scrollTo(0, target)
+      return
+    }
+
+    cancelScrollRef.current = animateWindowScroll(distance, () => {
+      cancelScrollRef.current = null
+    })
   }
 
   function currentPageAnswered() {
@@ -154,14 +232,17 @@ export default function SurveyPage() {
             </p>
             <div className={styles.scaleContainer}>
               <span className={styles.sideLabelLeft}>全く当てはまらない</span>
-              <div className={styles.bubbleRow}>
+              <div
+                className={styles.bubbleRow}
+                ref={el => { bubbleRowRefs.current[index] = el }}
+              >
                 {[1, 2, 3, 4, 5, 6, 7].map((value, i) => {
                   const isSelected = answers[question.id] === value
                   const sizeClass = styles[BUBBLE_SIZE_CLASSES[i]]
                   return (
                     <button
                       key={value}
-                      onClick={() => handleAnswer(question.id, value)}
+                      onClick={() => handleAnswer(question.id, value, index)}
                       className={`${styles.bubble} ${sizeClass} ${isSelected ? styles.bubbleSelected : ''}`}
                       aria-label={`${value}`}
                     />
@@ -222,6 +303,7 @@ export default function SurveyPage() {
             </button>
           )}
         </div>
+        <div ref={bottomSpacerRef} aria-hidden="true" />
       </div>
     </main>
   )
