@@ -44,3 +44,7 @@ export const LEVEL_THRESHOLDS = {
 
 export type Trait = typeof TRAITS[number]
 export type TraitLevel = typeof TRAIT_LEVELS[number]
+
+// Version of the question wording, saved with every response so answers to
+// different question sets are never mixed. Bump this when the questions change.
+export const QUESTION_SET = 'v1'

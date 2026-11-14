@@ -1,5 +1,5 @@
 import { supabase } from './supabase'
-import { TRAITS, LEVEL_THRESHOLDS, TRAIT_LEVELS } from './config'
+import { TRAITS, LEVEL_THRESHOLDS, TRAIT_LEVELS, QUESTION_SET } from './config'
 import type { Trait, TraitLevel } from './config'
 
 // Source: Saito, Nakamura, Endo, & Yokoyama (2001). 性格特性用語を用いた
@@ -79,7 +79,11 @@ export function buildCombinationKey(
 }
 
 export async function saveResponse(
-  scores: Record<Trait, { raw: number; percentile: number; level: TraitLevel }>
+  scores: Record<Trait, { raw: number; percentile: number; level: TraitLevel }>,
+  // Answers exactly as chosen (1–7, before reverse scoring), keyed by question ID.
+  answers: Record<number, number>,
+  // Milliseconds spent on each survey page, in page order.
+  pageDurationsMs: number[]
 ): Promise<string | null> {
   const rawScores: Record<string, number> = {}
   TRAITS.forEach(trait => { rawScores[trait] = scores[trait].raw })
@@ -91,6 +95,9 @@ export async function saveResponse(
     .insert({
       raw_scores: rawScores,
       combination_key: combinationKey,
+      answers,
+      question_set: QUESTION_SET,
+      page_durations_ms: pageDurationsMs,
     })
     .select('id')
     .single()

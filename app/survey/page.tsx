@@ -17,6 +17,8 @@ type Question = {
 
 type Answers = Record<number, number>
 
+const PAGE_COUNT = 6
+
 const TRAITS_ORDER = ['extraversion', 'neuroticism', 'openness', 'conscientiousness', 'agreeableness']
 
 function organizeQuestions(questions: Question[]): Question[][] {
@@ -88,8 +90,26 @@ export default function SurveyPage() {
   const bottomSpacerRef = useRef<HTMLDivElement | null>(null)
   const cancelScrollRef = useRef<(() => void) | null>(null)
 
+  // Time spent on each page (ms), saved with the response to help spot careless answering.
+  // Going back to a page adds to that page's total.
+  const pageDurationsRef = useRef<number[]>(Array(PAGE_COUNT).fill(0))
+  const pageShownAtRef = useRef<number | null>(null)
+
   // Stop any running auto-scroll when leaving the page.
   useEffect(() => () => cancelScrollRef.current?.(), [])
+
+  // Start timing the page once its questions are on screen.
+  useEffect(() => {
+    if (!loading) pageShownAtRef.current = performance.now()
+  }, [currentPage, loading])
+
+  // Adds the time since the current page appeared to that page's total.
+  function recordPageTime() {
+    const shownAt = pageShownAtRef.current
+    if (shownAt === null) return
+    pageDurationsRef.current[currentPage] += Math.round(performance.now() - shownAt)
+    pageShownAtRef.current = null
+  }
 
   // New page: drop the extra bottom space from the previous page.
   useEffect(() => {
@@ -154,6 +174,7 @@ export default function SurveyPage() {
 
   function handleNext() {
     if (currentPage < 5) {
+      recordPageTime()
       setCurrentPage(prev => prev + 1)
       window.scrollTo(0, 0)
     }
@@ -162,7 +183,8 @@ export default function SurveyPage() {
   async function handleSubmit() {
     const allQuestions = pages.flat()
     const scores = calculateScores(answers, allQuestions)
-    const id = await saveResponse(scores)
+    recordPageTime()
+    const id = await saveResponse(scores, answers, pageDurationsRef.current)
     if (id) {
       router.push(`/results/${id}`)
     } else {
@@ -195,6 +217,7 @@ export default function SurveyPage() {
               {currentPage > 0 && (
                 <button
                   onClick={() => {
+                    recordPageTime()
                     setCurrentPage(prev => prev - 1)
                     window.scrollTo(0, 0)
                   }}
