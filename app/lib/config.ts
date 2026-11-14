@@ -47,4 +47,5 @@ export type TraitLevel = typeof TRAIT_LEVELS[number]
 
 // Version of the question wording, saved with every response so answers to
 // different question sets are never mixed. Bump this when the questions change.
-export const QUESTION_SET = 'v1'
+// v1 = original questions (docs/questions-v1.json); v2 = docs/questions-v2-draft.json.
+export const QUESTION_SET = 'v2'

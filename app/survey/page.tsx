@@ -245,6 +245,11 @@ export default function SurveyPage() {
 
       {/* Questions */}
       <div className={styles.pageContent}>
+      {currentPage === 0 && (
+        <p className={styles.instructions}>
+          それぞれの文が、普段のあなたにどのくらい当てはまるかを選んでください。深く考えすぎず、最初に思い浮かんだ答えを選んでください。
+        </p>
+      )}
       {pages[currentPage]?.map((question, index) => (
         <div key={question.id}>
           <div className={styles.questionWrapper}>

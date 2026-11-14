@@ -1,0 +1,422 @@
+[
+  {
+    "id": 1,
+    "text_jp": "私は話すことが好きだ",
+    "trait": "extraversion",
+    "reverse_scored": false,
+    "pool": "core"
+  },
+  {
+    "id": 2,
+    "text_jp": "私は明るく振る舞うことが多い",
+    "trait": "extraversion",
+    "reverse_scored": false,
+    "pool": "core"
+  },
+  {
+    "id": 3,
+    "text_jp": "私は初対面の人とも積極的に関わっていくことが多い",
+    "trait": "extraversion",
+    "reverse_scored": false,
+    "pool": "core"
+  },
+  {
+    "id": 4,
+    "text_jp": "私は人と交流することが得意だ",
+    "trait": "extraversion",
+    "reverse_scored": false,
+    "pool": "core"
+  },
+  {
+    "id": 5,
+    "text_jp": "私は活発に行動することが多い",
+    "trait": "extraversion",
+    "reverse_scored": false,
+    "pool": "core"
+  },
+  {
+    "id": 6,
+    "text_jp": "私は自分から率先して行動することが多い",
+    "trait": "extraversion",
+    "reverse_scored": false,
+    "pool": "core"
+  },
+  {
+    "id": 7,
+    "text_jp": "私は口数が少ない方だと思う",
+    "trait": "extraversion",
+    "reverse_scored": true,
+    "pool": "core"
+  },
+  {
+    "id": 8,
+    "text_jp": "私はどちらかというと暗い性格だと思う",
+    "trait": "extraversion",
+    "reverse_scored": true,
+    "pool": "core"
+  },
+  {
+    "id": 9,
+    "text_jp": "私は初対面の人に対してそっけない態度をとることが多い",
+    "trait": "extraversion",
+    "reverse_scored": true,
+    "pool": "core"
+  },
+  {
+    "id": 10,
+    "text_jp": "私は人と関わることが苦手だ",
+    "trait": "extraversion",
+    "reverse_scored": true,
+    "pool": "core"
+  },
+  {
+    "id": 11,
+    "text_jp": "私は自分の意見や気持ちを表に出さないことが多い",
+    "trait": "extraversion",
+    "reverse_scored": true,
+    "pool": "core"
+  },
+  {
+    "id": 12,
+    "text_jp": "私は目立たない地味な存在だと思う",
+    "trait": "extraversion",
+    "reverse_scored": true,
+    "pool": "core"
+  },
+  {
+    "id": 13,
+    "text_jp": "私はいろんなことで悩んでしまうことが多い",
+    "trait": "neuroticism",
+    "reverse_scored": false,
+    "pool": "core"
+  },
+  {
+    "id": 14,
+    "text_jp": "私は不安になりやすい",
+    "trait": "neuroticism",
+    "reverse_scored": false,
+    "pool": "core"
+  },
+  {
+    "id": 15,
+    "text_jp": "私は些細なことでも心配してしまうことが多い",
+    "trait": "neuroticism",
+    "reverse_scored": false,
+    "pool": "core"
+  },
+  {
+    "id": 16,
+    "text_jp": "私は気苦労が絶えないことが多い",
+    "trait": "neuroticism",
+    "reverse_scored": false,
+    "pool": "core"
+  },
+  {
+    "id": 17,
+    "text_jp": "私はすぐに弱気になってしまうことが多い",
+    "trait": "neuroticism",
+    "reverse_scored": false,
+    "pool": "core"
+  },
+  {
+    "id": 18,
+    "text_jp": "私は人の言葉や行動に傷つきやすい",
+    "trait": "neuroticism",
+    "reverse_scored": false,
+    "pool": "core"
+  },
+  {
+    "id": 19,
+    "text_jp": "私はちょっとしたことで動揺してしまうことが多い",
+    "trait": "neuroticism",
+    "reverse_scored": false,
+    "pool": "core"
+  },
+  {
+    "id": 20,
+    "text_jp": "私は細かいことが気になる神経質なタイプだと思う",
+    "trait": "neuroticism",
+    "reverse_scored": false,
+    "pool": "core"
+  },
+  {
+    "id": 21,
+    "text_jp": "私は物事を悲観的に考えてしまうことが多い",
+    "trait": "neuroticism",
+    "reverse_scored": false,
+    "pool": "core"
+  },
+  {
+    "id": 22,
+    "text_jp": "私は緊張しやすい",
+    "trait": "neuroticism",
+    "reverse_scored": false,
+    "pool": "core"
+  },
+  {
+    "id": 23,
+    "text_jp": "私は気分が落ち込みやすい",
+    "trait": "neuroticism",
+    "reverse_scored": false,
+    "pool": "core"
+  },
+  {
+    "id": 24,
+    "text_jp": "私はあまりくよくよしない方だと思う",
+    "trait": "neuroticism",
+    "reverse_scored": true,
+    "pool": "core"
+  },
+  {
+    "id": 25,
+    "text_jp": "私は独創的なアイデアを思いつくことが多い",
+    "trait": "openness",
+    "reverse_scored": false,
+    "pool": "core"
+  },
+  {
+    "id": 26,
+    "text_jp": "私はいろんな分野で才能を発揮できると思う",
+    "trait": "openness",
+    "reverse_scored": false,
+    "pool": "core"
+  },
+  {
+    "id": 27,
+    "text_jp": "私は新しいことや進歩的な考え方に興味を持つことが多い",
+    "trait": "openness",
+    "reverse_scored": false,
+    "pool": "core"
+  },
+  {
+    "id": 28,
+    "text_jp": "私は物事の本質を見抜く力があると思う",
+    "trait": "openness",
+    "reverse_scored": false,
+    "pool": "core"
+  },
+  {
+    "id": 29,
+    "text_jp": "私は豊かな想像力を持っていると思う",
+    "trait": "openness",
+    "reverse_scored": false,
+    "pool": "core"
+  },
+  {
+    "id": 30,
+    "text_jp": "私は美しいものや芸術に敏感な方だと思う",
+    "trait": "openness",
+    "reverse_scored": false,
+    "pool": "core"
+  },
+  {
+    "id": 31,
+    "text_jp": "私は頭の回転が速い方だと思う",
+    "trait": "openness",
+    "reverse_scored": false,
+    "pool": "core"
+  },
+  {
+    "id": 32,
+    "text_jp": "私は状況に応じて柔軟に対応することが多い",
+    "trait": "openness",
+    "reverse_scored": false,
+    "pool": "core"
+  },
+  {
+    "id": 33,
+    "text_jp": "私は幅広いことに興味を持っている",
+    "trait": "openness",
+    "reverse_scored": false,
+    "pool": "core"
+  },
+  {
+    "id": 34,
+    "text_jp": "私は新しいことへの好奇心が強い方だと思う",
+    "trait": "openness",
+    "reverse_scored": false,
+    "pool": "core"
+  },
+  {
+    "id": 35,
+    "text_jp": "私は自分の考えで物事を判断することが多い",
+    "trait": "openness",
+    "reverse_scored": false,
+    "pool": "core"
+  },
+  {
+    "id": 36,
+    "text_jp": "私は新しいことをすぐに理解できる方だと思う",
+    "trait": "openness",
+    "reverse_scored": false,
+    "pool": "core"
+  },
+  {
+    "id": 37,
+    "text_jp": "私は物事を計画的に進めることが多い",
+    "trait": "conscientiousness",
+    "reverse_scored": false,
+    "pool": "core"
+  },
+  {
+    "id": 38,
+    "text_jp": "私は何事にも勤勉に取り組む方だと思う",
+    "trait": "conscientiousness",
+    "reverse_scored": false,
+    "pool": "core"
+  },
+  {
+    "id": 39,
+    "text_jp": "私は几帳面な方だと思う",
+    "trait": "conscientiousness",
+    "reverse_scored": false,
+    "pool": "core"
+  },
+  {
+    "id": 40,
+    "text_jp": "私はいい加減なところがある",
+    "trait": "conscientiousness",
+    "reverse_scored": true,
+    "pool": "core"
+  },
+  {
+    "id": 41,
+    "text_jp": "私は時間にルーズな方だと思う",
+    "trait": "conscientiousness",
+    "reverse_scored": true,
+    "pool": "core"
+  },
+  {
+    "id": 42,
+    "text_jp": "私は物事を成り行きに任せてしまうことが多い",
+    "trait": "conscientiousness",
+    "reverse_scored": true,
+    "pool": "core"
+  },
+  {
+    "id": 43,
+    "text_jp": "私はやるべきことを後回しにしてしまうことが多い",
+    "trait": "conscientiousness",
+    "reverse_scored": true,
+    "pool": "core"
+  },
+  {
+    "id": 44,
+    "text_jp": "私は面倒なことを避けてしまうことが多い",
+    "trait": "conscientiousness",
+    "reverse_scored": true,
+    "pool": "core"
+  },
+  {
+    "id": 45,
+    "text_jp": "私は細かいことにこだわらない方だと思う",
+    "trait": "conscientiousness",
+    "reverse_scored": true,
+    "pool": "core"
+  },
+  {
+    "id": 46,
+    "text_jp": "私は軽率な行動をとってしまうことが多い",
+    "trait": "conscientiousness",
+    "reverse_scored": true,
+    "pool": "core"
+  },
+  {
+    "id": 47,
+    "text_jp": "私は誘惑に負けてしまうことが多い",
+    "trait": "conscientiousness",
+    "reverse_scored": true,
+    "pool": "core"
+  },
+  {
+    "id": 48,
+    "text_jp": "私は飽きっぽい方だと思う",
+    "trait": "conscientiousness",
+    "reverse_scored": true,
+    "pool": "core"
+  },
+  {
+    "id": 49,
+    "text_jp": "私は穏やかで温和な性格だと思う",
+    "trait": "agreeableness",
+    "reverse_scored": false,
+    "pool": "core"
+  },
+  {
+    "id": 50,
+    "text_jp": "私は人の失敗や欠点を許すことができる方だと思う",
+    "trait": "agreeableness",
+    "reverse_scored": false,
+    "pool": "core"
+  },
+  {
+    "id": 51,
+    "text_jp": "私は困っている人を見ると助けたくなる",
+    "trait": "agreeableness",
+    "reverse_scored": false,
+    "pool": "core"
+  },
+  {
+    "id": 52,
+    "text_jp": "私は人に対して思いやりを持って接することが多い",
+    "trait": "agreeableness",
+    "reverse_scored": false,
+    "pool": "core"
+  },
+  {
+    "id": 53,
+    "text_jp": "私は人と協力して物事を進めることが得意だ",
+    "trait": "agreeableness",
+    "reverse_scored": false,
+    "pool": "core"
+  },
+  {
+    "id": 54,
+    "text_jp": "私は人の意見を素直に受け入れることが多い",
+    "trait": "agreeableness",
+    "reverse_scored": false,
+    "pool": "core"
+  },
+  {
+    "id": 55,
+    "text_jp": "私はちょっとしたことですぐにイライラしてしまうことが多い",
+    "trait": "agreeableness",
+    "reverse_scored": true,
+    "pool": "core"
+  },
+  {
+    "id": 56,
+    "text_jp": "私は怒りっぽい方だと思う",
+    "trait": "agreeableness",
+    "reverse_scored": true,
+    "pool": "core"
+  },
+  {
+    "id": 57,
+    "text_jp": "私は人に対してきつい言い方をしてしまうことが多い",
+    "trait": "agreeableness",
+    "reverse_scored": true,
+    "pool": "core"
+  },
+  {
+    "id": 58,
+    "text_jp": "私はかんしゃくを起こしてしまうことが多い",
+    "trait": "agreeableness",
+    "reverse_scored": true,
+    "pool": "core"
+  },
+  {
+    "id": 59,
+    "text_jp": "私は自分のことを優先して考えてしまうことが多い",
+    "trait": "agreeableness",
+    "reverse_scored": true,
+    "pool": "core"
+  },
+  {
+    "id": 60,
+    "text_jp": "私は権威や規則に反発したくなることが多い",
+    "trait": "agreeableness",
+    "reverse_scored": true,
+    "pool": "core"
+  }
+]
