@@ -2,11 +2,12 @@
 
 import { useEffect, useRef, useState } from 'react'
 import { supabase } from '../lib/supabase'
-import { TRAITS, TRAIT_LABELS_JP } from '../lib/config'
+import type { Gender, AgeRange } from '../lib/config'
 import styles from './survey.module.css'
 import { useRouter } from 'next/navigation'
 import { calculateScores, saveResponse } from '../lib/scoring'
 import { SITE_HEADER_HEIGHT } from '../components/SiteHeader'
+import ProfileQuestions from './ProfileQuestions'
 
 type Question = {
   id: number
@@ -17,7 +18,10 @@ type Question = {
 
 type Answers = Record<number, number>
 
-const PAGE_COUNT = 6
+// 6 pages of 10 questions, then one profile page (gender / age range).
+const QUESTION_PAGE_COUNT = 6
+const PROFILE_PAGE = QUESTION_PAGE_COUNT
+const TOTAL_PAGES = QUESTION_PAGE_COUNT + 1
 
 const TRAITS_ORDER = ['extraversion', 'neuroticism', 'openness', 'conscientiousness', 'agreeableness']
 
@@ -29,7 +33,7 @@ function organizeQuestions(questions: Question[]): Question[][] {
   })
 
   const pages: Question[][] = []
-  for (let page = 0; page < 6; page++) {
+  for (let page = 0; page < QUESTION_PAGE_COUNT; page++) {
     const pageQuestions: Question[] = []
     TRAITS_ORDER.forEach(trait => {
       const traitQuestions = byTrait[trait]
@@ -80,6 +84,8 @@ export default function SurveyPage() {
   const [pages, setPages] = useState<Question[][]>([])
   const [currentPage, setCurrentPage] = useState(0)
   const [answers, setAnswers] = useState<Answers>({})
+  const [gender, setGender] = useState<Gender | null>(null)
+  const [ageRange, setAgeRange] = useState<AgeRange | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const router = useRouter()
@@ -90,9 +96,9 @@ export default function SurveyPage() {
   const bottomSpacerRef = useRef<HTMLDivElement | null>(null)
   const cancelScrollRef = useRef<(() => void) | null>(null)
 
-  // Time spent on each page (ms), saved with the response to help spot careless answering.
-  // Going back to a page adds to that page's total.
-  const pageDurationsRef = useRef<number[]>(Array(PAGE_COUNT).fill(0))
+  // Time spent on each question page (ms), saved with the response to help spot careless answering.
+  // Going back to a page adds to that page's total. The profile page is not timed.
+  const pageDurationsRef = useRef<number[]>(Array(QUESTION_PAGE_COUNT).fill(0))
   const pageShownAtRef = useRef<number | null>(null)
 
   // Stop any running auto-scroll when leaving the page.
@@ -106,7 +112,7 @@ export default function SurveyPage() {
   // Adds the time since the current page appeared to that page's total.
   function recordPageTime() {
     const shownAt = pageShownAtRef.current
-    if (shownAt === null) return
+    if (shownAt === null || currentPage >= QUESTION_PAGE_COUNT) return
     pageDurationsRef.current[currentPage] += Math.round(performance.now() - shownAt)
     pageShownAtRef.current = null
   }
@@ -168,12 +174,13 @@ export default function SurveyPage() {
   }
 
   function currentPageAnswered() {
+    if (currentPage === PROFILE_PAGE) return gender !== null && ageRange !== null
     if (!pages[currentPage]) return false
     return pages[currentPage].every(q => answers[q.id] !== undefined)
   }
 
   function handleNext() {
-    if (currentPage < 5) {
+    if (currentPage < TOTAL_PAGES - 1) {
       recordPageTime()
       setCurrentPage(prev => prev + 1)
       window.scrollTo(0, 0)
@@ -181,10 +188,11 @@ export default function SurveyPage() {
   }
 
   async function handleSubmit() {
+    if (!gender || !ageRange) return
     const allQuestions = pages.flat()
     const scores = calculateScores(answers, allQuestions)
     recordPageTime()
-    const id = await saveResponse(scores, answers, pageDurationsRef.current)
+    const id = await saveResponse(scores, answers, pageDurationsRef.current, { gender, ageRange })
     if (id) {
       router.push(`/results/${id}`)
     } else {
@@ -204,8 +212,8 @@ export default function SurveyPage() {
     </main>
   )
 
-  const progress = (currentPage / 6) * 100
-  const isLastPage = currentPage === 5
+  const progress = (currentPage / TOTAL_PAGES) * 100
+  const isLastPage = currentPage === TOTAL_PAGES - 1
 
   return (
     <main style={{ flex: 1, background: '#FAFAF8' }}>
@@ -234,7 +242,7 @@ export default function SurveyPage() {
                 </button>
               )}
             </div>
-            <span style={{ fontSize: '12px', color: '#888' }}>ページ {currentPage + 1} / 6</span>
+            <span style={{ fontSize: '12px', color: '#888' }}>ページ {currentPage + 1} / {TOTAL_PAGES}</span>
             <span style={{ fontSize: '12px', color: '#888', minWidth: '60px', textAlign: 'right' }}>{Math.round(progress)}% 完了</span>
           </div>
           <div style={{ height: '2px', background: '#E8E8E4', borderRadius: '2px' }}>
@@ -250,7 +258,15 @@ export default function SurveyPage() {
           それぞれの文が、普段のあなたにどのくらい当てはまるかを選んでください。深く考えすぎず、最初に思い浮かんだ答えを選んでください。
         </p>
       )}
-      {pages[currentPage]?.map((question, index) => (
+      {currentPage === PROFILE_PAGE && (
+        <ProfileQuestions
+          gender={gender}
+          ageRange={ageRange}
+          onGenderChange={setGender}
+          onAgeRangeChange={setAgeRange}
+        />
+      )}
+      {currentPage < QUESTION_PAGE_COUNT && pages[currentPage]?.map((question, index) => (
         <div key={question.id}>
           <div className={styles.questionWrapper}>
             <p className={styles.questionNumber}>

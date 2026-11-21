@@ -1,6 +1,6 @@
 import { supabase } from './supabase'
 import { TRAITS, LEVEL_THRESHOLDS, TRAIT_LEVELS, QUESTION_SET } from './config'
-import type { Trait, TraitLevel } from './config'
+import type { Trait, TraitLevel, Gender, AgeRange } from './config'
 
 // Source: Saito, Nakamura, Endo, & Yokoyama (2001). 性格特性用語を用いた
 // Big Five尺度の標準化. Kyushu University Psychological Research, 2, 135-144.
@@ -83,7 +83,8 @@ export async function saveResponse(
   // Answers exactly as chosen (1–7, before reverse scoring), keyed by question ID.
   answers: Record<number, number>,
   // Milliseconds spent on each survey page, in page order.
-  pageDurationsMs: number[]
+  pageDurationsMs: number[],
+  profile: { gender: Gender; ageRange: AgeRange }
 ): Promise<string | null> {
   const rawScores: Record<string, number> = {}
   TRAITS.forEach(trait => { rawScores[trait] = scores[trait].raw })
@@ -98,6 +99,8 @@ export async function saveResponse(
       answers,
       question_set: QUESTION_SET,
       page_durations_ms: pageDurationsMs,
+      gender: profile.gender,
+      age_range: profile.ageRange,
     })
     .select('id')
     .single()

@@ -160,3 +160,44 @@
     line-height: 1.8;
     color: #5F5E5A;
   }
+
+  /* Profile page (gender / age range) */
+  .profile {
+    max-width: 580px;
+    margin: 0 auto;
+  }
+
+  .profileGroup {
+    border: none;
+    padding: 0;
+    margin: 0 0 40px;
+  }
+
+  .optionGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+
+  @media (min-width: 600px) {
+    .optionGridAge {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  .option {
+    padding: 12px 8px;
+    border: 1px solid #C4C4BC;
+    border-radius: 4px;
+    background: transparent;
+    font-size: 14px;
+    color: #2C2C2A;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+
+  .optionSelected {
+    background: #1D9E75;
+    border-color: #1D9E75;
+    color: #fff;
+  }

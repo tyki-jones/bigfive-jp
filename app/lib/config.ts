@@ -49,3 +49,29 @@ export type TraitLevel = typeof TRAIT_LEVELS[number]
 // different question sets are never mixed. Bump this when the questions change.
 // v1 = original questions (docs/questions-v1.json); v2 = docs/questions-v2-draft.json.
 export const QUESTION_SET = 'v2'
+
+// Profile questions asked on the page after the 60 questions.
+// `value` is what is saved in responses (gender / age_range); `label` is shown to the user.
+export const GENDER_OPTIONS = [
+  { value: 'man', label: '男性' },
+  { value: 'woman', label: '女性' },
+  { value: 'other', label: 'その他' },
+] as const
+
+export const AGE_RANGE_OPTIONS = [
+  { value: '0-10', label: '10歳以下' },
+  { value: '11-15', label: '11〜15歳' },
+  { value: '16-20', label: '16〜20歳' },
+  { value: '21-25', label: '21〜25歳' },
+  { value: '26-30', label: '26〜30歳' },
+  { value: '31-35', label: '31〜35歳' },
+  { value: '36-40', label: '36〜40歳' },
+  { value: '41-45', label: '41〜45歳' },
+  { value: '46-50', label: '46〜50歳' },
+  { value: '51-55', label: '51〜55歳' },
+  { value: '56-60', label: '56〜60歳' },
+  { value: '61+', label: '61歳以上' },
+] as const
+
+export type Gender = typeof GENDER_OPTIONS[number]['value']
+export type AgeRange = typeof AGE_RANGE_OPTIONS[number]['value']
