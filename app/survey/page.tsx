@@ -152,13 +152,20 @@ export default function SurveyPage() {
     const next = bubbleRowRefs.current[index + 1]
     if (!current || !next) return // last question on the page
 
-    // Phones: don't scroll after the first question. The second question is already
-    // lower on the screen, so the following ones stay within easy reach of the thumb.
-    if (index === 0 && window.matchMedia(PHONE_QUERY).matches) return
-
     cancelScrollRef.current?.()
 
-    const distance = next.getBoundingClientRect().top - current.getBoundingClientRect().top
+    const nextRect = next.getBoundingClientRect()
+    let distance = nextRect.top - current.getBoundingClientRect().top
+
+    // Phones: after the first question, bring the second question's bubbles to the middle
+    // of the screen instead. Every later scroll is one question's height, so the following
+    // questions also land in the middle, within easy reach of the thumb.
+    // (Never scrolls up, in case the second question is already below the middle.)
+    if (index === 0 && window.matchMedia(PHONE_QUERY).matches) {
+      distance = Math.max(0, nextRect.top + nextRect.height / 2 - window.innerHeight / 2)
+      if (distance === 0) return
+    }
+
     const start = window.scrollY
     const target = start + distance
 
