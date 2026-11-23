@@ -35,23 +35,23 @@ export default function ProfileQuestions({ gender, ageRange, onGenderChange, onA
         </div>
       </fieldset>
 
-      <fieldset className={styles.profileGroup}>
-        <legend className={styles.questionText}>年齢</legend>
-        <div className={`${styles.optionGrid} ${styles.optionGridAge}`} role="radiogroup">
-          {AGE_RANGE_OPTIONS.map(({ value, label }) => (
-            <button
-              key={value}
-              type="button"
-              role="radio"
-              aria-checked={ageRange === value}
-              onClick={() => onAgeRangeChange(value)}
-              className={`${styles.option} ${ageRange === value ? styles.optionSelected : ''}`}
-            >
-              {label}
-            </button>
-          ))}
+      <div className={styles.profileGroup}>
+        <label htmlFor="age-range" className={styles.questionText} style={{ display: 'block' }}>年齢</label>
+        {/* Native dropdown: on phones it opens the system picker. */}
+        <div className={styles.selectWrapper}>
+          <select
+            id="age-range"
+            value={ageRange ?? ''}
+            onChange={e => onAgeRangeChange(e.target.value as AgeRange)}
+            className={`${styles.select} ${ageRange ? '' : styles.selectPlaceholder}`}
+          >
+            <option value="" disabled>年齢を選択する</option>
+            {AGE_RANGE_OPTIONS.map(({ value, label }) => (
+              <option key={value} value={value}>{label}</option>
+            ))}
+          </select>
         </div>
-      </fieldset>
+      </div>
     </div>
   )
 }

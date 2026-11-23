@@ -179,10 +179,48 @@
     gap: 8px;
   }
 
-  @media (min-width: 600px) {
-    .optionGridAge {
-      grid-template-columns: repeat(4, 1fr);
-    }
+  /* Age range dropdown */
+  .selectWrapper {
+    position: relative;
+  }
+
+  .selectWrapper::after {
+    content: '';
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    width: 7px;
+    height: 7px;
+    border-right: 1.5px solid #5F5E5A;
+    border-bottom: 1.5px solid #5F5E5A;
+    transform: translateY(-70%) rotate(45deg);
+    pointer-events: none;
+  }
+
+  .select {
+    width: 100%;
+    appearance: none;
+    padding: 12px 40px 12px 14px;
+    border: 1px solid #C4C4BC;
+    border-radius: 4px;
+    background: transparent;
+    font-size: 16px; /* 16px stops iPhones zooming in on tap */
+    color: #2C2C2A;
+    cursor: pointer;
+  }
+
+  .select:focus-visible {
+    outline: 2px solid #1D9E75;
+    outline-offset: 1px;
+  }
+
+  .selectPlaceholder {
+    color: #888;
+  }
+
+  /* Keep the list itself dark even while the placeholder is grey */
+  .select option {
+    color: #2C2C2A;
   }
 
   .option {
