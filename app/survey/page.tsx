@@ -49,6 +49,8 @@ const BUBBLE_SIZE_CLASSES = ['bubbleXl', 'bubbleLg', 'bubbleMd', 'bubbleSm', 'bu
 
 // Auto-scroll after answering: short and snappy.
 const AUTO_SCROLL_MS = 220
+// Touch screen at phone width (tablets and computers keep the normal behaviour).
+const PHONE_QUERY = '(pointer: coarse) and (max-width: 767px)'
 const easeOutCubic = (t: number) => 1 - Math.pow(1 - t, 3)
 
 // Animates window scroll by `distance` px. Returns a function that stops it early.
@@ -149,6 +151,10 @@ export default function SurveyPage() {
     const current = bubbleRowRefs.current[index]
     const next = bubbleRowRefs.current[index + 1]
     if (!current || !next) return // last question on the page
+
+    // Phones: don't scroll after the first question. The second question is already
+    // lower on the screen, so the following ones stay within easy reach of the thumb.
+    if (index === 0 && window.matchMedia(PHONE_QUERY).matches) return
 
     cancelScrollRef.current?.()
 
