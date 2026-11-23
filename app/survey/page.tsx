@@ -50,6 +50,8 @@ const BUBBLE_SIZE_CLASSES = ['bubbleXl', 'bubbleLg', 'bubbleMd', 'bubbleSm', 'bu
 // Auto-scroll after answering: short and snappy.
 const AUTO_SCROLL_MS = 220
 // Touch screen at phone width (tablets and computers keep the normal behaviour).
+// Space left between the progress bar and the next question when the scroll is capped.
+const QUESTION_TOP_GAP = 16
 const PHONE_QUERY = '(pointer: coarse) and (max-width: 767px)'
 const easeOutCubic = (t: number) => 1 - Math.pow(1 - t, 3)
 
@@ -97,6 +99,8 @@ export default function SurveyPage() {
   // Extra space under the page so the last questions can still be scrolled into place.
   const bottomSpacerRef = useRef<HTMLDivElement | null>(null)
   const cancelScrollRef = useRef<(() => void) | null>(null)
+  // Sticky progress bar: the visible area for questions starts below it.
+  const progressBarRef = useRef<HTMLDivElement | null>(null)
 
   // Time spent on each question page (ms), saved with the response to help spot careless answering.
   // Going back to a page adds to that page's total. The profile page is not timed.
@@ -166,6 +170,17 @@ export default function SurveyPage() {
       if (distance === 0) return
     }
 
+    // Never scroll the next question's number and text out of sight: stop when its top
+    // reaches the bottom of the sticky progress bar. This matters when someone scrolls
+    // back up to change an earlier answer and the next question starts lower on the screen.
+    const nextQuestion = next.closest(`.${styles.questionWrapper}`)
+    if (nextQuestion) {
+      const visibleTop = progressBarRef.current?.getBoundingClientRect().bottom ?? 0
+      const maxDistance = nextQuestion.getBoundingClientRect().top - visibleTop - QUESTION_TOP_GAP
+      distance = Math.min(distance, maxDistance)
+    }
+    if (distance <= 0) return
+
     const start = window.scrollY
     const target = start + distance
 
@@ -231,7 +246,7 @@ export default function SurveyPage() {
   return (
     <main style={{ flex: 1, background: '#FAFAF8' }}>
       {/* Progress bar */}
-      <div style={{ position: 'sticky', top: SITE_HEADER_HEIGHT, zIndex: 10, background: '#FAFAF8', borderBottom: '0.5px solid #E8E8E4', padding: '12px 20px' }}>
+      <div ref={progressBarRef} style={{ position: 'sticky', top: SITE_HEADER_HEIGHT, zIndex: 10, background: '#FAFAF8', borderBottom: '0.5px solid #E8E8E4', padding: '12px 20px' }}>
         <div style={{ maxWidth: '640px', margin: '0 auto' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
             <div style={{ minWidth: '60px' }}>
